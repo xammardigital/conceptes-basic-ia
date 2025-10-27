@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Prompts Avançats - Xammar Digital</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FFFFFF;
+            color: #2D3748;
+            line-height: 1.6;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            border-bottom: 4px solid #FF6B00;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: #1A365D;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #FF6B00;
+            font-size: 28px;
+        }
+        
+        .brand-name {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1A365D;
+            letter-spacing: -0.5px;
+        }
+        
+        .brand-tagline {
+            color: #FF6B00;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        h1 {
+            color: #1A365D;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            color: #2D3748;
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 25px;
+        }
+        
+        h2 {
+            color: #1A365D;
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-left: 12px;
+            border-left: 4px solid #FF6B00;
+        }
+        
+        h3 {
+            color: #1A365D;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+        
+        .highlight-box {
+            background: #EDF2F7;
+            border-left: 4px solid #FF6B00;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .highlight-box strong {
+            color: #FF6B00;
+            font-weight: 700;
+        }
+        
+        .code-block {
+            background: #1A365D;
+            color: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+        
+        .code-block .tag {
+            color: #FF8A33;
+            font-weight: 600;
+        }
+        
+        .code-block .content {
+            color: #EDF2F7;
+            padding-left: 10px;
+        }
+        
+        .example-box {
+            background: #FFFFFF;
+            border: 2px solid #CBD5E0;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .example-box h4 {
+            color: #FF6B00;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+        
+        li strong {
+            color: #1A365D;
+        }
+        
+        .action-tip {
+            background: #FF6B00;
+            color: #FFFFFF;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #EDF2F7;
+            text-align: center;
+            color: #2D3748;
+            font-size: 12px;
+        }
+        
+        .footer strong {
+            color: #FF6B00;
+        }
+        
+        @media print {
+            .page {
+                box-shadow: none;
+                margin: 0;
+            }
+            
+            body {
+                background: white;
+            }
+        }
+        
+        .component-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .component-card {
+            background: #EDF2F7;
+            padding: 15px;
+            border-radius: 8px;
+            border-top: 3px solid #FF6B00;
+        }
+        
+        .component-card h4 {
+            color: #1A365D;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        
+        .component-card p {
+            font-size: 13px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <div class="logo-area">
+                <div class="logo">X</div>
+                <div>
+                    <div class="brand-name">Xammar Digital</div>
+                    <div class="brand-tagline">Formació Tecnològica Pràctica</div>
+                </div>
+            </div>
+        </div>
+        
+        <h1>Guia de Prompts Avançats</h1>
+        <p class="subtitle">Estructura professional per comunicar-te amb IA de forma efectiva</p>
+        
+        <div class="highlight-box">
+            <strong>Objectiu d'aquests apunts:</strong> Aprendre a construir prompts estructurats que generin respostes precises, útils i alineades amb les teves necessitats professionals. Vam al gra!
+        </div>
+        
+        <h2>Què és un Prompt Avançat?</h2>
+        <p>Un prompt avançat és una instrucció estructurada que dones a una IA (com ChatGPT, Claude, etc.) per obtenir resultats més precisos i professionals. En lloc de preguntar "fes-me un text", li dones context, rol, tasca específica, format i límits clars.</p>
+        
+        <p><strong>Per què serveix?</strong> Per aconseguir continguts més útils, estalviar temps en correccions i obtenir exactament el que necessites a la primera.</p>
+        
+        <h2>Els 5 Components Essencials</h2>
+        
+        <div class="component-grid">
+            <div class="component-card">
+                <h4>1. Context</h4>
+                <p>Informació de fons sobre la situació o projecte</p>
+            </div>
+            <div class="component-card">
+                <h4>2. Role</h4>
+                <p>Quin rol ha d'adoptar la IA</p>
+            </div>
+            <div class="component-card">
+                <h4>3. Task</h4>
+                <p>Què ha de fer exactament, pas a pas</p>
+            </div>
+            <div class="component-card">
+                <h4>4. Output Format</h4>
+                <p>Com vols rebre el resultat</p>
+            </div>
+        </div>
+        <div class="component-card" style="margin-top: 15px;">
+            <h4>5. Constraints</h4>
+            <p>Restriccions, límits o requisits específics</p>
+        </div>
+        
+        <h2>Estructura del Prompt</h2>
+        
+        <div class="code-block">
+<span class="tag">&lt;context&gt;</span>
+<span class="content">[Context detallat del projecte/situació]</span>
+<span class="tag">&lt;/context&gt;</span>
+
+<span class="tag">&lt;role&gt;</span>
+<span class="content">Ets un [rol específic] amb experiència en [àrea]. 
+El teu estil és [descriptiu].</span>
+<span class="tag">&lt;/role&gt;</span>
+
+<span class="tag">&lt;task&gt;</span>
+<span class="content">[Tasca específica pas a pas]</span>
+<span class="tag">&lt;/task&gt;</span>
+
+<span class="tag">&lt;output_format&gt;</span>
+<span class="content">[Format desitjat exacte]</span>
+<span class="tag">&lt;/output_format&gt;</span>
+
+<span class="tag">&lt;constraints&gt;</span>
+<span class="content">[Restriccions específiques]</span>
+<span class="tag">&lt;/constraints&gt;</span>
+        </div>
+        
+        <h2>Desglossament de Cada Component</h2>
+        
+        <h3>1. Context</h3>
+        <p>Proporciona el "per què" i el "per a què". Explica la situació, el projecte, l'audiència o qualsevol informació rellevant que ajudi la IA a entendre el teu objectiu.</p>
+        
+        <div class="example-box">
+            <h4>Exemple pràctic</h4>
+            <p><strong>&lt;context&gt;</strong><br>
+            Sóc formador a Xammar Digital i estic preparant un taller de 3 hores sobre IA generativa per a professionals de màrqueting. Els participants tenen nivell inicial i busquen aplicacions pràctiques per al seu dia a dia.<br>
+            <strong>&lt;/context&gt;</strong></p>
+        </div>
+        
+        <h3>2. Role</h3>
+        <p>Define quin paper ha de jugar la IA. Això influeix en el to, l'enfocament i el tipus de resposta que obtindràs.</p>
+        
+        <div class="example-box">
+            <h4>Exemple pràctic</h4>
+            <p><strong>&lt;role&gt;</strong><br>
+            Ets un dissenyador de continguts educatius amb 10 anys d'experiència en formació tecnològica. El teu estil és directe, pràctic i motivador, sempre enfocant-te en aplicacions reals.<br>
+            <strong>&lt;/role&gt;</strong></p>
+        </div>
+        
+        <h3>3. Task</h3>
+        <p>La tasca específica que ha de realitzar. Sigues concret i estructurat. Si és necessari, divideix-la en passos numerats.</p>
+        
+        <div class="example-box">
+            <h4>Exemple pràctic</h4>
+            <p><strong>&lt;task&gt;</strong><br>
+            Crea un esquema de 5 exercicis pràctics per al taller d'IA, seguint aquests passos:<br>
+            1. Defineix l'objectiu d'aprenentatge de cada exercici<br>
+            2. Descriu l'eina d'IA que s'utilitzarà<br>
+            3. Explica pas a pas què ha de fer l'alumne<br>
+            4. Indica el resultat esperat i com s'avaluarà<br>
+            <strong>&lt;/task&gt;</strong></p>
+        </div>
+        
+        <h3>4. Output Format</h3>
+        <p>Com vols rebre la informació: llista, taula, text corregut, esquema visual, guió, etc. Sigues específic amb l'estructura.</p>
+        
+        <div class="example-box">
+            <h4>Exemple pràctic</h4>
+            <p><strong>&lt;output_format&gt;</strong><br>
+            Presenta cada exercici en el següent format:<br>
+            <strong>Exercici [número]:</strong> [Títol breu]<br>
+            - Objectiu: [1 frase]<br>
+            - Eina: [Nom de l'eina IA]<br>
+            - Procediment: [4-5 passos numerats]<br>
+            - Resultat: [Descripció del lliurable]<br>
+            <strong>&lt;/output_format&gt;</strong></p>
+        </div>
+        
+        <h3>5. Constraints</h3>
+        <p>Limitacions, requisits o condicions que ha de complir la resposta. Això pot incloure longitud, to, públic, restriccions tècniques, etc.</p>
+        
+        <div class="example-box">
+            <h4>Exemple pràctic</h4>
+            <p><strong>&lt;constraints&gt;</strong><br>
+            - Cada exercici no pot durar més de 30 minuts<br>
+            - Utilitza només eines gratuïtes o amb versió free<br>
+            - El llenguatge ha de ser en català<br>
+            - Evita tecnicismes innecessaris<br>
+            - Enfoca't en aplicacions de màrqueting de continguts<br>
+            <strong>&lt;/constraints&gt;</strong></p>
+        </div>
+        
+        <div class="action-tip">
+            💡 CONSELL PRÀCTIC: Comença sempre pel context i el rol. Aquests dos components són els que més influeixen en la qualitat de la resposta que obtindràs.
+        </div>
+        
+        <h2>Exemple Complet Integrat</h2>
+        
+        <div class="code-block">
+<span class="tag">&lt;context&gt;</span>
+<span class="content">Treballo com a community manager freelance per a 3 petites empreses 
+locals del Maresme. Necessito optimitzar el meu procés de creació 
+de contingut per xarxes socials.</span>
+<span class="tag">&lt;/context&gt;</span>
+
+<span class="tag">&lt;role&gt;</span>
+<span class="content">Ets un expert en automatització de processos de màrqueting digital 
+amb especialització en social media. El teu estil és pràctic, 
+eficient i sempre aportes exemples concrets.</span>
+<span class="tag">&lt;/role&gt;</span>
+
+<span class="tag">&lt;task&gt;</span>
+<span class="content">Crea un workflow (flux de treball) setmanal per generar contingut 
+per Instagram i LinkedIn que inclogui:
+1. Planificació temàtica
+2. Eines d'IA per generar idees i textos
+3. Procés de disseny visual
+4. Sistema de programació i publicació</span>
+<span class="tag">&lt;/task&gt;</span>
+
+<span class="tag">&lt;output_format&gt;</span>
+<span class="content">Presenta el workflow com una llista d'accions diàries (dilluns a 
+divendres), indicant per cada dia:
+- Tasques específiques
+- Eina recomanada
+- Temps estimat</span>
+<span class="tag">&lt;/output_format&gt;</span>
+
+<span class="tag">&lt;constraints&gt;</span>
+<span class="content">- Màxim 2 hores al dia de dedicació
+- Pressupost zero (només eines gratuïtes)
+- Ha de ser replicable per a diferents clients
+- Inclou 1-2 alternatives per cada eina proposada</span>
+<span class="tag">&lt;/constraints&gt;</span>
+        </div>
+        
+        <h2>Errors Comuns a Evitar</h2>
+        
+        <ul>
+            <li><strong>Context massa genèric:</strong> "Necessito ajuda amb xarxes socials" → Sigues específic sobre situació, audiència i objectiu</li>
+            <li><strong>Rol poc definit:</strong> "Ets un expert" → Afegeix àrea d'especialització i estil de comunicació</li>
+            <li><strong>Tasca ambigua:</strong> "Fes alguna cosa interessant" → Descriu exactament què vols i en quins passos</li>
+            <li><strong>Format no especificat:</strong> Si no indiques format, obtindràs el que la IA decideixi (pot no ser útil)</li>
+            <li><strong>Sense constraints:</strong> Sense límits, la IA pot donar respostes massa llargues, complexes o fora de pressupost</li>
+        </ul>
+        
+        <div class="action-tip">
+            🎯 EXERCICI PRÀCTIC: Agafa un projecte real que tinguis entre mans i construeix un prompt avançat seguint aquesta estructura. Prova'l i compara els resultats amb un prompt simple.
+        </div>
+        
+        <h2>Consells Finals</h2>
+        
+        <ul>
+            <li><strong>Itera:</strong> El primer prompt pot no ser perfecte. Ajusta i refina segons els resultats</li>
+            <li><strong>Guarda plantilles:</strong> Quan trobis estructures que funcionin, desa-les per reutilitzar-les</li>
+            <li><strong>Sigues específic:</strong> Com més concret siguis, millors resultats obtindràs</li>
+            <li><strong>Demana exemples:</strong> Si dubtes, inclou a la tasca que la IA et doni exemples concrets</li>
+            <li><strong>Revisa sempre:</strong> La IA és una eina potent, però tu ets l'expert en el teu projecte</li>
+        </ul>
+        
+        <div class="highlight-box">
+            <strong>Recorda:</strong> Un bon prompt és com un bon brief per a un col·laborador. Com més clar siguis amb què necessites, més probable és que obtinguis exactament el que vols. A Xammar Digital creiem en l'acció: practica aquests prompts avançats en els teus projectes reals i veuràs la diferència!
+        </div>
+        
+        <div class="footer">
+            <strong>Xammar Digital</strong> · Formació Tecnològica Pràctica · Mataró, Maresme<br>
+            Material didàctic per a alumnes · Tots els drets reservats
+        </div>
+    </div>
+
+
+</body>
+</html>
