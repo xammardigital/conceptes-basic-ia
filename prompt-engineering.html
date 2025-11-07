@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enginyeria de Prompts - Guia Pràctica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #111827;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #9CA3AF;
+        }
+
+        .slide-container {
+            border-radius: 1rem;
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .level-badge {
+            display: inline-block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .slide-description {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            white-space: pre-line;
+        }
+
+        .prompt-section {
+            margin-bottom: 1rem;
+        }
+
+        .prompt-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .prompt-label span:first-child {
+            font-size: 1.5rem;
+        }
+
+        .prompt-box {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            position: relative;
+            padding-right: 3.5rem;
+        }
+
+        .prompt-box code {
+            font-size: 0.875rem;
+            white-space: pre-wrap;
+            display: block;
+            font-family: 'Courier New', monospace;
+            line-height: 1.5;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .copy-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .copy-button svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            color: white;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-button svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .progress {
+            text-align: center;
+        }
+
+        .progress-text {
+            font-size: 0.875rem;
+            color: #9CA3AF;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 0.25rem;
+            justify-content: center;
+        }
+
+        .progress-dot {
+            height: 0.5rem;
+            width: 0.5rem;
+            border-radius: 9999px;
+            background-color: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .progress-dot.active {
+            background-color: white;
+            width: 2rem;
+        }
+
+        /* Colores de fondo por nivel */
+        .bg-intro {
+            background: linear-gradient(to bottom right, #E9D5FF, #FBCFE8);
+            color: #1F2937;
+        }
+
+        .bg-level1 {
+            background: linear-gradient(to bottom right, #ECFDF5, #D1FAE5);
+            color: #1F2937;
+        }
+
+        .bg-level2 {
+            background: linear-gradient(to bottom right, #FFFBEB, #FED7AA);
+            color: #1F2937;
+        }
+
+        .bg-level3 {
+            background: linear-gradient(to bottom right, #EFF6FF, #DBEAFE);
+            color: #1F2937;
+        }
+
+        .bg-final {
+            background: linear-gradient(to bottom right, #EEF2FF, #E9D5FF);
+            color: #1F2937;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Enginyeria de Prompts</h1>
+            <p>Guia pràctica amb exemples copiables</p>
+        </div>
+
+        <div id="slideContainer" class="slide-container"></div>
+
+        <div class="navigation">
+            <button id="prevBtn" class="nav-button" onclick="prevSlide()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Anterior
+            </button>
+
+            <div class="progress">
+                <div class="progress-text" id="progressText">1 / 15</div>
+                <div class="progress-dots" id="progressDots"></div>
+            </div>
+
+            <button id="nextBtn" class="nav-button" onclick="nextSlide()">
+                Següent
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const slides = [
+            {
+                level: "Introducció",
+                title: "Què és un prompt?",
+                description: "Un prompt és la instrucció que dones a una IA perquè faci una tasca. Com més clar siguis, millor t'entendrà.",
+                colorClass: "bg-intro"
+            },
+            {
+                level: "🟢 Nivell 1",
+                title: "Sigues clar i específic",
+                bad: "Planifica un cap de setmana a Girona.",
+                good: "Planifica un itinerari de cap de setmana (dissabte i diumenge) a Girona per a una parella. Ens agrada passejar pel casc antic, la gastronomia i la fotografia. El pressupost és mitjà.",
+                colorClass: "bg-level1"
+            },
+            {
+                level: "🟢 Nivell 1",
+                title: "Usa llenguatge natural",
+                description: "Escriu com si parlessis amb una persona real. En lloc de paraules clau com en un cercador, construeix frases completes.",
+                colorClass: "bg-level1"
+            },
+            {
+                level: "🟢 Nivell 1",
+                title: "Indica el to o format",
+                bad: "Felicita l'aniversari al meu amic Pau.",
+                good: "Escriu un missatge de felicitació d'aniversari per al meu amic Pau per enviar per WhatsApp. Fes servir un to divertit i proper, i acaba amb un emoji de festa.",
+                colorClass: "bg-level1"
+            },
+            {
+                level: "🟢 Nivell 1",
+                title: "Demana passos si és complex",
+                bad: "Com puc començar a meditar?",
+                good: "Vull començar a meditar per reduir l'estrès. Explica'm com fer-ho pas a pas per a un principiant total. Començant per només 5 minuts al dia.",
+                colorClass: "bg-level1"
+            },
+            {
+                level: "🟢 Nivell 1",
+                title: "Estructura bàsica",
+                description: "Rol → Objectiu → To → Format",
+                good: "Ets un nutricionista expert en menjar saludable i ràpid.\nDona'm 3 idees d'esmorzars rics en proteïnes.\nEl to ha de ser motivador i fàcil d'entendre.\nPresenta les idees en una llista numerada.",
+                colorClass: "bg-level1"
+            },
+            {
+                level: "🟡 Nivell 2",
+                title: "Assignar rols (Role Prompting)",
+                description: "Donar un rol a la IA millora dràsticament la qualitat de la resposta.",
+                bad: "Dona'm idees per a un viatge a Tòquio.",
+                good: "Ets un guia turístic expert en Tòquio, especialitzat en viatges de baix pressupost. Suggereix un itinerari de 5 dies que combini llocs famosos amb experiències locals autèntiques.",
+                colorClass: "bg-level2"
+            },
+            {
+                level: "🟡 Nivell 2",
+                title: "Donar context addicional",
+                description: "El context ajuda la IA a entendre per a qui o per a què és la resposta.",
+                bad: "Explica'm què és un forat negre.",
+                good: "Vull explicar-li al meu fill de 8 anys què és un forat negre. Explica-ho amb una analogia senzilla que pugui entendre, com si fos un conte.",
+                colorClass: "bg-level2"
+            },
+            {
+                level: "🟡 Nivell 2",
+                title: "Control del format de sortida",
+                description: "Sigues explícit sobre com vols que es presenti la informació.",
+                bad: "Compara Netflix i HBO Max.",
+                good: "Fes una taula comparativa entre Netflix i HBO Max. Inclou aquestes columnes: Preu, Millors sèries originals, Ideal per a...",
+                colorClass: "bg-level2"
+            },
+            {
+                level: "🟡 Nivell 2",
+                title: "Exemples (Few-shot learning)",
+                description: "Mostrar exemples és la manera més ràpida perquè la IA entengui el format exacte.",
+                good: "Converteix les següents afirmacions en preguntes, seguint l'estil dels exemples:\n\nExemple 1:\nAfirmació: \"La pel·lícula va ser interessant.\"\nPregunta: \"Què et va semblar la pel·lícula?\"\n\nExemple 2:\nAfirmació: \"Demà aniré a comprar.\"\nPregunta: \"Què necessites comprar demà?\"\n\nAra, converteix aquesta: 'El concert va estar genial'.",
+                colorClass: "bg-level2"
+            },
+            {
+                level: "🟡 Nivell 2",
+                title: "Enllaçar passos",
+                description: "Guia la IA a través d'un procés lògic per obtenir respostes més completes.",
+                bad: "Recomana'm un llibre.",
+                good: "Primer, fes-me 3 preguntes per entendre els meus gustos literaris. Després, basant-te en les meves respostes, recomana'm 2 llibres i explica per què creus que m'agradaran.",
+                colorClass: "bg-level2"
+            },
+            {
+                level: "🔵 Nivell 3",
+                title: "Ús d'XML per estructurar",
+                description: "Les etiquetes XML organitzen la informació complexa, evitant confusions.",
+                good: "<peticio>\n  <rol>Ets un planificador de viatges personalitzat.</rol>\n  <objectiu>Crea un pla per a una tarda a París.</objectiu>\n  <context>\n    <viatgers>Una parella jove</viatgers>\n    <interessos>Art, cafès amb encant, fotografia</interessos>\n    <restriccions>Tenim un pressupost baix i no volem fer cues llargues.</restriccions>\n  </context>\n  <format>Una llista d'activitats en ordre cronològic, de 16:00h a 21:00h.</format>\n</peticio>",
+                colorClass: "bg-level3"
+            },
+            {
+                level: "🔵 Nivell 3",
+                title: "Cadena de pensament (Chain of Thought)",
+                description: "Força la IA a raonar abans de respondre. Ideal per a problemes lògics.",
+                bad: "És millor anar de vacances a la platja o a la muntanya a l'agost?",
+                good: "Vull decidir les meves vacances d'agost. Raona pas a pas els pros i contres de la platja i la muntanya, considerant factors com la calor, la quantitat de gent i el tipus d'activitats. Després del teu anàlisi, fes una recomanació.",
+                colorClass: "bg-level3"
+            },
+            {
+                level: "🔵 Nivell 3",
+                title: "Prompts llargs amb context",
+                description: "Per analitzar textos llargs, posa sempre el text al principi i la pregunta al final.",
+                good: "<document>\n  <font>ressenyes_restaurant_el_bon_gust.txt</font>\n  <contingut>\n    [Aquí anirien 50 ressenyes llargues de clients]\n  </contingut>\n</document>\n\n**Instrucció (al final):**\nAnalitza totes les ressenyes i resumeix en una llista els 3 plats més elogiats i les 2 queixes més repetides sobre el servei.",
+                colorClass: "bg-level3"
+            },
+            {
+                level: "🧠 Consells Finals",
+                title: "Claus per a l'èxit",
+                description: "• Com millor formulis el prompt, menys temps perdràs corregint\n• Desa els teus prompts efectius com a plantilles\n• Fes que la IA t'avaluï: \"Quina part d'aquest prompt podria millorar-se?\"",
+                colorClass: "bg-final"
+            }
+        ];
+
+        let currentSlide = 0;
+
+        function renderSlide() {
+            const slide = slides[currentSlide];
+            const container = document.getElementById('slideContainer');
+            
+            container.className = 'slide-container ' + slide.colorClass;
+            
+            let html = `
+                <div class="level-badge">${slide.level}</div>
+                <h2 class="slide-title">${slide.title}</h2>
+            `;
+
+            if (slide.description) {
+                html += `<p class="slide-description">${slide.description}</p>`;
+            }
+
+            if (slide.bad) {
+                html += `
+                    <div class="prompt-section">
+                        <div class="prompt-label">
+                            <span>❌</span>
+                            <span>Prompt incorrecte:</span>
+                        </div>
+                        <div class="prompt-box">
+                            <code>${escapeHtml(slide.bad)}</code>
+                            <button class="copy-button" onclick="copyToClipboard(${currentSlide}, 'bad')" title="Copiar prompt">
+                                <svg id="icon-bad-${currentSlide}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (slide.good) {
+                html += `
+                    <div class="prompt-section">
+                        <div class="prompt-label">
+                            <span>✅</span>
+                            <span>Prompt correcte:</span>
+                        </div>
+                        <div class="prompt-box">
+                            <code>${escapeHtml(slide.good)}</code>
+                            <button class="copy-button" onclick="copyToClipboard(${currentSlide}, 'good')" title="Copiar prompt">
+                                <svg id="icon-good-${currentSlide}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+
+            // Update progress
+            document.getElementById('progressText').textContent = `${currentSlide + 1} / ${slides.length}`;
+            
+            // Update progress dots
+            const dotsContainer = document.getElementById('progressDots');
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot' + (index === currentSlide ? ' active' : '');
+                dotsContainer.appendChild(dot);
+            });
+
+            // Update buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === slides.length - 1;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function copyToClipboard(slideIndex, type) {
+            const slide = slides[slideIndex];
+            const text = type === 'bad' ? slide.bad : slide.good;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const icon = document.getElementById(`icon-${type}-${slideIndex}`);
+                const originalContent = icon.innerHTML;
+                
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>';
+                
+                setTimeout(() => {
+                    icon.innerHTML = originalContent;
+                }, 2000);
+            }).catch(err => {
+                console.error('Error copiant el text:', err);
+                alert('No s\'ha pogut copiar el text');
+            });
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                renderSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                renderSlide();
+            }
+        }
+
+        // Initialize
+        renderSlide();
+    </script>
+</body>
+</html>
