@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercici: El teu Bessó Digital a la IA | Xammar Digital</title>
+    
+    <!-- Google Fonts: Funnel Display & Funnel Sans for Xammar Digital -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400;600;700&family=Funnel+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Branding Xammar Digital */
+            --primary-orange: #FF6B00;
+            --hover-orange: #FF8A33;
+            --heading-blue: #1A365D;
+            --text-dark: #2D3748;
+            --bg-special: #EDF2F7;
+            --bg-main: #FFFFFF;
+            --border-light: #CBD5E0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Funnel Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .header h1 {
+            font-family: 'Funnel Display', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--heading-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-dark);
+            font-size: 1.25rem;
+            opacity: 0.8;
+        }
+
+        .slide-container {
+            border-radius: 1rem;
+            padding: 3rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 10px 30px -5px rgba(26, 54, 93, 0.1);
+            transition: all 0.4s ease;
+            border: 1px solid var(--border-light);
+        }
+
+        .level-badge {
+            display: inline-block;
+            font-family: 'Funnel Display', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 700;
+            background-color: var(--heading-blue);
+            color: var(--bg-main);
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            margin-bottom: 1.5rem;
+            align-self: flex-start;
+        }
+
+        .slide-title {
+            font-family: 'Funnel Display', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--heading-blue);
+            margin-bottom: 1rem;
+        }
+
+        .slide-description {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+            opacity: 0.9;
+            white-space: pre-line;
+            line-height: 1.6;
+        }
+
+        .slide-description strong {
+            font-family: 'Funnel Sans', sans-serif;
+            font-weight: 600;
+            color: var(--primary-orange);
+        }
+
+        .prompt-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .prompt-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--heading-blue);
+            font-family: 'Funnel Display', sans-serif;
+            font-size: 1.1rem;
+        }
+
+        .prompt-label span:first-child {
+            font-size: 1.5rem;
+        }
+
+        .prompt-box {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-light);
+            border-left: 4px solid var(--primary-orange);
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            position: relative;
+            padding-right: 4rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .prompt-section-bad .prompt-box {
+            border-left: 4px solid #E53E3E;
+            background-color: #FFF5F5;
+        }
+
+        .prompt-box code {
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            display: block;
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--bg-special);
+            border: 1px solid var(--border-light);
+            color: var(--heading-blue);
+            padding: 0.6rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .copy-button:hover {
+            background-color: var(--heading-blue);
+            color: var(--bg-main);
+            border-color: var(--heading-blue);
+        }
+
+        .copy-button svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding: 1rem 0;
+        }
+
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--primary-orange);
+            border: none;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            color: white;
+            font-family: 'Funnel Sans', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background-color: var(--hover-orange);
+            transform: translateY(-2px);
+        }
+
+        .nav-button:disabled {
+            background-color: var(--border-light);
+            color: #A0AEC0;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .nav-button svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .progress {
+            text-align: center;
+        }
+
+        .progress-text {
+            font-size: 1rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-family: 'Funnel Display', sans-serif;
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 0.35rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 300px;
+        }
+
+        .progress-dot {
+            height: 0.5rem;
+            width: 0.5rem;
+            border-radius: 9999px;
+            background-color: var(--border-light);
+            transition: all 0.3s;
+        }
+
+        .progress-dot.active {
+            background-color: var(--primary-orange);
+            width: 1.5rem;
+        }
+
+        /* Colores de fondo por nivel ajustados a la marca */
+        .bg-intro { background: linear-gradient(135deg, var(--bg-main), var(--bg-special)); }
+        .bg-level1 { background: linear-gradient(135deg, #F0FFF4, #C6F6D5); }
+        .bg-level2 { background: linear-gradient(135deg, #FFFBEB, #FEEBC8); }
+        .bg-level3 { background: linear-gradient(135deg, #EBF8FF, #BEE3F8); }
+        .bg-level4 { background: linear-gradient(135deg, #FAF5FF, #E9D5FF); }
+        .bg-final { background: linear-gradient(135deg, var(--bg-main), var(--bg-special)); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>El teu "Bessó Digital"</h1>
+            <p>Exercici pas a pas de Xammar Digital</p>
+        </div>
+
+        <div id="slideContainer" class="slide-container"></div>
+
+        <div class="navigation">
+            <button id="prevBtn" class="nav-button" onclick="prevSlide()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Anterior
+            </button>
+
+            <div class="progress">
+                <div class="progress-text" id="progressText">1 / 8</div>
+                <div class="progress-dots" id="progressDots"></div>
+            </div>
+
+            <button id="nextBtn" class="nav-button" onclick="nextSlide()">
+                Següent
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const slides = [
+            {
+                level: "Introducció",
+                title: "Com «programar» la teva veu a la IA",
+                description: "<strong>Cas pràctic:</strong> Crearem el perfil de l'<strong>Anna</strong>, una comptable de Mataró que vol sonar professional però molt propera i clara amb els seus clients.",
+                colorClass: "bg-intro"
+            },
+            {
+                level: "PAS 1",
+                title: "Definir qui som (Identitat)",
+                description: "No n'hi ha prou amb dir la professió; la IA necessita saber la «missió» i el context.\n\n<strong>Per què fem això?</strong>\nPerquè la IA triï el camp semàntic adequat. No és el mateix un comptable d'una multinacional que una assessora de confiança de tota la vida.",
+                bad: "Ets una comptable que escriu correus.",
+                good: "Ets l'Anna, comptable a Mataró. La teva missió és traduir la burocràcia fiscal a un llenguatge que els autònoms entenguin, sent resolutiva i directa.",
+                colorClass: "bg-level1"
+            },
+            {
+                level: "PAS 2",
+                title: "El To i els «Vetos»",
+                description: "Aquí és on matem el «robot». Hem de prohibir les paraules que una persona real no diria mai.\n\n<strong>Per què fem això?</strong>\nL'honestedat (admetre que una cosa és avorrida o difícil) és el que més humanitza un text en aquest 2026 saturat de contingut sintètic.",
+                bad: "Sigues amable i professional.",
+                good: "Fes servir un to semi-formal. Evita paraules buides com 'revolucionari' o 'cordialment'. Si un tràmit és pesat, digues-ho clarament (ex: 'Això de les subvencions és un embolic').",
+                colorClass: "bg-level2"
+            },
+            {
+                level: "PAS 3",
+                title: "Diccionari i «Crosses»",
+                description: "Tots tenim paraules que repetim. Això és la teva «empremta dactilar» lingüística.\n\n<strong>Per què fem això?</strong>\nLes \"crosses\" o expressions locals (com el 'som-hi' a Catalunya) fan que el receptor del correu senti que hi ha una persona a l'altre costat.",
+                bad: "No posar res (la IA usarà el seu dialecte automàtic, que sona molt artificial).",
+                good: "Fes servir expressions com: 'Anem a pams', 'Escolta...', 'Som-hi!'. En lloc d'atentament, acomiada't amb un 'Seguim!'.",
+                colorClass: "bg-level3"
+            },
+            {
+                level: "PAS 4",
+                title: "Estructura i Format Visual",
+                description: "La gent d'oficina no llegeix, **escaneja**. Hem d'ensenyar a la IA com presentar la informació.\n\n<strong>Per què fem això?</strong>\nMillora la usabilitat. Un correu de l'Anna ha de ser útil abans que bonic.",
+                bad: "Escriu paràgrafs normals.",
+                good: "Fes servir paràgrafs curts (màxim 3 línies). Posa en negreta sempre els imports i les dates clau per facilitar la lectura ràpida.",
+                colorClass: "bg-level4"
+            },
+            {
+                level: "PAS 5",
+                title: "El mètode «Few-Shot»",
+                description: "Aquest és el pas mestre (Els exemples). Si li dones exemples, la IA copiarà el ritme i la puntuació exacta.",
+                bad: "No posar exemples.",
+                good: "Copia el meu estil d'aquests dos correus reals:\n1. 'Hola Joan! Tinc la liquidació. Sortim a pagar una mica, però no t'espantis...'.\n2. 'Escolta, que ens falta una factura de la llum. Envia-me-la quan puguis, som-hi!'",
+                colorClass: "bg-level1"
+            },
+            {
+                level: "RESULTAT FINAL",
+                title: "El Prompt Construït",
+                description: "Si ajuntem totes les lliçons anteriors, el prompt que enganxaríem a la IA seria aquest:",
+                good: "Actua com l'Anna, comptable de Mataró. El teu to és professional però molt proper i honest. No usis llenguatge corporatiu avorrit. Quan m'ajudis a escriure, recorda dir 'Anem a pams' si expliques una cosa difícil i 'Seguim!' per acomiadar-te. Posa les dades importants en negreta i sigues directa. No diguis mai 'estimat client'. Aquí tens un exemple de com escric: [INSERTAR EXEMPLE].",
+                colorClass: "bg-level2"
+            },
+            {
+                level: "🎯 PRÀCTICA",
+                title: "Prova Tu Mateix",
+                description: "Intenta definir 3 paraules que TU facis servir molt i 3 que ODÏS que la IA faci servir. Enganxa-les en un prompt seguint aquest ordre i veuràs com canvia la màgia...",
+                colorClass: "bg-final"
+            }
+        ];
+
+        let currentSlide = 0;
+
+        function renderSlide() {
+            const slide = slides[currentSlide];
+            const container = document.getElementById('slideContainer');
+            
+            container.className = 'slide-container ' + slide.colorClass;
+            
+            let html = `
+                <div class="level-badge">${slide.level}</div>
+                <h2 class="slide-title">${slide.title}</h2>
+            `;
+
+            if (slide.description) {
+                // Convertim algunes marques markdown en HTML (com la negreta)
+                let desc = slide.description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                html += `<p class="slide-description">${desc}</p>`;
+            }
+
+            if (slide.bad) {
+                html += `
+                    <div class="prompt-section prompt-section-bad">
+                        <div class="prompt-label">
+                            <span>❌</span>
+                            <span>Així no:</span>
+                        </div>
+                        <div class="prompt-box">
+                            <code>${escapeHtml(slide.bad)}</code>
+                            <button class="copy-button" onclick="copyToClipboard(${currentSlide}, 'bad')" title="Copiar prompt">
+                                <svg id="icon-bad-${currentSlide}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (slide.good) {
+                html += `
+                    <div class="prompt-section">
+                        <div class="prompt-label">
+                            <span>✅</span>
+                            <span>Així sí:</span>
+                        </div>
+                        <div class="prompt-box">
+                            <code>${escapeHtml(slide.good)}</code>
+                            <button class="copy-button" onclick="copyToClipboard(${currentSlide}, 'good')" title="Copiar prompt">
+                                <svg id="icon-good-${currentSlide}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+
+            // Update progress
+            document.getElementById('progressText').textContent = `${currentSlide + 1} / ${slides.length}`;
+            
+            // Update progress dots
+            const dotsContainer = document.getElementById('progressDots');
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot' + (index === currentSlide ? ' active' : '');
+                // Click en los puntos para navegar rápidademente
+                dot.style.cursor = 'pointer';
+                dot.onclick = () => {
+                    currentSlide = index;
+                    renderSlide();
+                };
+                dotsContainer.appendChild(dot);
+            });
+
+            // Update buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === slides.length - 1;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function copyToClipboard(slideIndex, type) {
+            const slide = slides[slideIndex];
+            const text = type === 'bad' ? slide.bad : slide.good;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const icon = document.getElementById(`icon-${type}-${slideIndex}`);
+                const originalContent = icon.innerHTML;
+                
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>';
+                
+                setTimeout(() => {
+                    icon.innerHTML = originalContent;
+                }, 2000);
+            }).catch(err => {
+                console.error('Error copiant el text:', err);
+                alert("No s'ha pogut copiar el text");
+            });
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                renderSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                renderSlide();
+            }
+        }
+
+        // Initialize
+        renderSlide();
+    </script>
+</body>
+</html>
