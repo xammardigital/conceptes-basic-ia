@@ -3,8 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enginyeria de Prompts - Guia Pràctica</title>
+    <title>Enginyeria de Prompts - Guia Pràctica | Xammar Digital</title>
+    
+    <!-- Google Fonts: Funnel Display & Funnel Sans for Xammar Digital -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400;600;700&family=Funnel+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            /* Branding Xammar Digital */
+            --primary-orange: #FF6B00;
+            --hover-orange: #FF8A33;
+            --heading-blue: #1A365D;
+            --text-dark: #2D3748;
+            --bg-special: #EDF2F7;
+            --bg-main: #FFFFFF;
+            --border-light: #CBD5E0;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,9 +29,9 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #111827;
-            color: white;
+            font-family: 'Funnel Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -32,63 +49,78 @@
 
         .header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            font-weight: bold;
+            font-family: 'Funnel Display', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--heading-blue);
             margin-bottom: 0.5rem;
         }
 
         .header p {
-            color: #9CA3AF;
+            color: var(--text-dark);
+            font-size: 1.25rem;
+            opacity: 0.8;
         }
 
         .slide-container {
             border-radius: 1rem;
-            padding: 2rem;
+            padding: 3rem;
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px -5px rgba(26, 54, 93, 0.1);
+            transition: all 0.4s ease;
+            border: 1px solid var(--border-light);
         }
 
         .level-badge {
             display: inline-block;
+            font-family: 'Funnel Display', sans-serif;
             font-size: 0.875rem;
-            font-weight: 600;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 0.5rem 1rem;
+            font-weight: 700;
+            background-color: var(--heading-blue);
+            color: var(--bg-main);
+            padding: 0.5rem 1.25rem;
             border-radius: 9999px;
             margin-bottom: 1.5rem;
+            align-self: flex-start;
         }
 
         .slide-title {
-            font-size: 2rem;
-            font-weight: bold;
+            font-family: 'Funnel Display', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--heading-blue);
             margin-bottom: 1rem;
         }
 
         .slide-description {
-            font-size: 1.125rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
             opacity: 0.9;
             white-space: pre-line;
+            line-height: 1.6;
         }
 
         .prompt-section {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .prompt-label {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             font-weight: 600;
+            color: var(--heading-blue);
+            font-family: 'Funnel Display', sans-serif;
+            font-size: 1.1rem;
         }
 
         .prompt-label span:first-child {
@@ -96,38 +128,50 @@
         }
 
         .prompt-box {
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-light);
+            border-left: 4px solid var(--primary-orange);
             border-radius: 0.5rem;
-            padding: 1rem;
+            padding: 1.25rem;
             position: relative;
-            padding-right: 3.5rem;
+            padding-right: 4rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .prompt-section-bad .prompt-box {
+            border-left: 4px solid #E53E3E;
+            background-color: #FFF5F5;
         }
 
         .prompt-box code {
-            font-size: 0.875rem;
+            font-size: 0.95rem;
             white-space: pre-wrap;
             display: block;
-            font-family: 'Courier New', monospace;
-            line-height: 1.5;
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            color: var(--text-dark);
         }
 
         .copy-button {
             position: absolute;
             top: 1rem;
             right: 1rem;
-            background-color: rgba(255, 255, 255, 0.2);
-            border: none;
-            padding: 0.5rem;
+            background-color: var(--bg-special);
+            border: 1px solid var(--border-light);
+            color: var(--heading-blue);
+            padding: 0.6rem;
             border-radius: 0.5rem;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .copy-button:hover {
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: var(--heading-blue);
+            color: var(--bg-main);
+            border-color: var(--heading-blue);
         }
 
         .copy-button svg {
@@ -140,29 +184,35 @@
             align-items: center;
             justify-content: space-between;
             margin-top: 2rem;
+            padding: 1rem 0;
         }
 
         .nav-button {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: var(--primary-orange);
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 0.85rem 1.75rem;
             border-radius: 0.5rem;
             cursor: pointer;
             color: white;
-            font-size: 1rem;
-            transition: background-color 0.2s;
+            font-family: 'Funnel Sans', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background-color 0.2s, transform 0.1s;
         }
 
         .nav-button:hover:not(:disabled) {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: var(--hover-orange);
+            transform: translateY(-2px);
         }
 
         .nav-button:disabled {
-            opacity: 0.3;
+            background-color: var(--border-light);
+            color: #A0AEC0;
             cursor: not-allowed;
+            transform: none;
         }
 
         .nav-button svg {
@@ -175,62 +225,48 @@
         }
 
         .progress-text {
-            font-size: 0.875rem;
-            color: #9CA3AF;
-            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-family: 'Funnel Display', sans-serif;
         }
 
         .progress-dots {
             display: flex;
-            gap: 0.25rem;
+            gap: 0.35rem;
             justify-content: center;
+            flex-wrap: wrap;
+            max-width: 300px;
         }
 
         .progress-dot {
             height: 0.5rem;
             width: 0.5rem;
             border-radius: 9999px;
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: var(--border-light);
             transition: all 0.3s;
         }
 
         .progress-dot.active {
-            background-color: white;
-            width: 2rem;
+            background-color: var(--primary-orange);
+            width: 1.5rem;
         }
 
-        /* Colores de fondo por nivel */
-        .bg-intro {
-            background: linear-gradient(to bottom right, #E9D5FF, #FBCFE8);
-            color: #1F2937;
-        }
-
-        .bg-level1 {
-            background: linear-gradient(to bottom right, #ECFDF5, #D1FAE5);
-            color: #1F2937;
-        }
-
-        .bg-level2 {
-            background: linear-gradient(to bottom right, #FFFBEB, #FED7AA);
-            color: #1F2937;
-        }
-
-        .bg-level3 {
-            background: linear-gradient(to bottom right, #EFF6FF, #DBEAFE);
-            color: #1F2937;
-        }
-
-        .bg-final {
-            background: linear-gradient(to bottom right, #EEF2FF, #E9D5FF);
-            color: #1F2937;
-        }
+        /* Colores de fondo por nivel ajustados a la marca */
+        .bg-intro { background: linear-gradient(135deg, var(--bg-main), var(--bg-special)); }
+        .bg-level1 { background: linear-gradient(135deg, #F0FFF4, #C6F6D5); }
+        .bg-level2 { background: linear-gradient(135deg, #FFFBEB, #FEEBC8); }
+        .bg-level3 { background: linear-gradient(135deg, #EBF8FF, #BEE3F8); }
+        .bg-level4 { background: linear-gradient(135deg, #FAF5FF, #E9D5FF); }
+        .bg-final { background: linear-gradient(135deg, var(--bg-main), var(--bg-special)); }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>Enginyeria de Prompts</h1>
-            <p>Guia pràctica amb exemples copiables</p>
+            <p>Guia pràctica de Xammar Digital (Nivell 1 al 4)</p>
         </div>
 
         <div id="slideContainer" class="slide-container"></div>
@@ -244,7 +280,7 @@
             </button>
 
             <div class="progress">
-                <div class="progress-text" id="progressText">1 / 15</div>
+                <div class="progress-text" id="progressText">1 / 18</div>
                 <div class="progress-dots" id="progressDots"></div>
             </div>
 
@@ -361,6 +397,30 @@
                 colorClass: "bg-level3"
             },
             {
+                level: "🟣 Nivell 4",
+                title: "Raonament Profund",
+                description: "En 2026, els models no només responen, sinó que \"pensen\" abans de parlar. Aquí el secret no és demanar el resultat, sinó guiar el procés de pensament.",
+                bad: "Fes-me un resum d'aquest pla de negoci i digues si funcionarà.",
+                good: "<rol>Ets un analista d'inversions expert en risc tecnològic.</rol>\n<context>T'adjunto el PDF del pla de negoci de la meva nova startup.</context>\n<instruccions>\n1. Activa el teu mode de raonament profund (Chain of Thought).\n2. Analitza les 3 hipòtesis principals del document.\n3. Troba possibles contradiccions o punts febles que jo hagi passat per alt.\n4. No em donis només el resum; explica'm el teu procés lògic per arribar a la conclusió.\n</instruccions>",
+                colorClass: "bg-level4"
+            },
+            {
+                level: "🟣 Nivell 4",
+                title: "Multimodalitat Activa",
+                description: "Ja no cal descriure-ho tot amb text. La IA té ulls. Aprèn a utilitzar imatges i vídeos com a part del teu prompt.",
+                bad: "Tinc un error en una línia de codi que surt de color vermell i diu 'syntax error'...",
+                good: "<context>\n[Imatge adjunta de la captura de pantalla de l'error i el codi adjacent]\n</context>\n<instruccions>\nMira la captura de pantalla que t'he passat. \n1. Identifica exactament en quina línia del meu editor hi ha l'error.\n2. Compara el meu codi amb la documentació oficial actualitzada a 2026.\n3. Proposa la correcció directa i explica per què ha fallat.\n</instruccions>",
+                colorClass: "bg-level4"
+            },
+            {
+                level: "🟣 Nivell 4",
+                title: "Gestió d'Agents i Eines",
+                description: "El prompt modern ja no demana un text, demana una execució. Ensenyem a la IA a fer servir les seves eines (navegador, codi, calendaris).",
+                bad: "Busca a Google quines són les tendències de disseny d'avui.",
+                good: "<rol>Ets el meu Agent de Recerca de Mercat.</rol>\n<instruccions>\n1. Utilitza l'eina de **Cerca Web** per trobar els 5 articles més llegits avui sobre UI/UX.\n2. Fes servir l'eina d'**Anàlisi de Dades** per crear una taula comparativa de les tendències esmentades.\n3. Genera un fitxer .csv amb aquesta taula i envia'm el resum final per llegir-lo ara.\n</instruccions>",
+                colorClass: "bg-level4"
+            },
+            {
                 level: "🧠 Consells Finals",
                 title: "Claus per a l'èxit",
                 description: "• Com millor formulis el prompt, menys temps perdràs corregint\n• Desa els teus prompts efectius com a plantilles\n• Fes que la IA t'avaluï: \"Quina part d'aquest prompt podria millorar-se?\"",
@@ -387,10 +447,10 @@
 
             if (slide.bad) {
                 html += `
-                    <div class="prompt-section">
+                    <div class="prompt-section prompt-section-bad">
                         <div class="prompt-label">
                             <span>❌</span>
-                            <span>Prompt incorrecte:</span>
+                            <span>Així no:</span>
                         </div>
                         <div class="prompt-box">
                             <code>${escapeHtml(slide.bad)}</code>
@@ -409,7 +469,7 @@
                     <div class="prompt-section">
                         <div class="prompt-label">
                             <span>✅</span>
-                            <span>Prompt correcte:</span>
+                            <span>Així sí:</span>
                         </div>
                         <div class="prompt-box">
                             <code>${escapeHtml(slide.good)}</code>
@@ -434,6 +494,12 @@
             slides.forEach((_, index) => {
                 const dot = document.createElement('div');
                 dot.className = 'progress-dot' + (index === currentSlide ? ' active' : '');
+                // Click en los puntos para navegar rápidademente
+                dot.style.cursor = 'pointer';
+                dot.onclick = () => {
+                    currentSlide = index;
+                    renderSlide();
+                };
                 dotsContainer.appendChild(dot);
             });
 
